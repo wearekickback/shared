@@ -48,6 +48,28 @@ export const assertUsername = str => {
   }
 }
 
+export const isTwitterId = str => {
+  if (typeof str !== 'string') {
+    return false
+  }
+
+  if (!str) {
+    return false
+  }
+
+  if (!(/^[A-Za-z0-9_]{2,16}$/.test(str))) {
+    return false
+  }
+
+  return true
+}
+
+export const assertTwitterId = str => {
+  if (!isTwitterId(str)) {
+    throw new Error(`Invalid twitter id: ${str}`)
+  }
+}
+
 export const isRealName = str => {
   if (typeof str !== 'string') {
     return false
