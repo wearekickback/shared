@@ -15,6 +15,7 @@ describe('email address', () => {
   it('checks and assertions', () => {
     const tests = [
       [ 1024, false ],
+      [ '', false ],
       [ 'str', false ],
       [ 'str@', false ],
       [ 'str@sd', false ],
@@ -40,6 +41,7 @@ describe('username', () => {
   it('checks and assertions', () => {
     const tests = [
       [ 1024, false ],
+      [ '', false ],
       [ 'str str', false ],
       [ 'str.23', false ],
       [ 'a-str', false ],
@@ -50,6 +52,10 @@ describe('username', () => {
       [ '_23adsc_22', true ],
       [ '99234_', true ],
       [ '你好', false ],
+      [ '1', false ],
+      [ '12', true ],
+      [ '1234567890123456', true ],
+      [ '12345678901234567', false ],
     ]
 
     expect.assertions(tests.length * 2)
@@ -70,6 +76,7 @@ describe('real name', () => {
   it('checks and assertions', () => {
     const tests = [
       [ 1024, false ],
+      [ '', false ],
       [ 'str str', true ],
       [ 'str.23', false ],
       [ 'a-str', true ],
@@ -81,6 +88,10 @@ describe('real name', () => {
       [ 'sdf sdf', true ],
       [ ' sdf sdf  ', true ],
       [ '你好', true ],
+      [ 'a', false ],
+      [ 'ab', true ],
+      [ 'abcdefghijabcdefghijabcdefghijabcdefghijabcdefgh', true ],
+      [ 'abcdefghijabcdefghijabcdefghijabcdefghijabcdefghi', false ],
     ]
 
     expect.assertions(tests.length * 2)
