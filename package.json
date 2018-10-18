@@ -1,6 +1,5 @@
 {
-  "name": "validation",
-  "private": true,
+  "name": "@noblocknoparty/validation",
   "version": "1.0.0",
   "description": "Validation for user input",
   "main": "dist/index.js",
