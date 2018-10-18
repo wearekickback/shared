@@ -44,7 +44,7 @@ export const isUsername = str => {
 
 export const assertUsername = str => {
   if (!isUsername(str)) {
-    throw new Error(`Invalid username: ${str}`)
+    throw new Error(`Invalid username: ${str}. Must be between 2 and 16 characters and only contains letters, numbers and underscores.`)
   }
 }
 
@@ -66,7 +66,7 @@ export const isTwitterId = str => {
 
 export const assertTwitterId = str => {
   if (!isTwitterId(str)) {
-    throw new Error(`Invalid twitter id: ${str}`)
+    throw new Error(`Invalid twitter id: ${str}. Must be between 2 and 16 characters and only contain letters, numbers and underscores.`)
   }
 }
 
@@ -88,7 +88,7 @@ export const isRealName = str => {
 
 export const assertRealName = str => {
   if (!isRealName(str)) {
-    throw new Error(`Invalid real name: ${str}`)
+    throw new Error(`Invalid real name: ${str}. Must be between 2 and 48 characters and not contain numbers or underscores.`)
   }
 }
 
