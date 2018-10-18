@@ -78,5 +78,8 @@
     "plugins": [
       "add-module-exports"
     ]
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
