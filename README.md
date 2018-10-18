@@ -15,4 +15,4 @@ Validation for user input.
 
 ## License
 
-All Rights Reserved
+MIT
