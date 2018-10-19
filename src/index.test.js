@@ -5,6 +5,7 @@ import {
   assertUsername,
   isTwitterId,
   assertTwitterId,
+  sanitizeTwitterId,
   isRealName,
   assertRealName,
   hasAcceptedLegalAgreements,
@@ -106,6 +107,17 @@ describe('twitter id', () => {
         expect(() => assertTwitterId(input)).toThrow()
       }
     })
+  })
+
+  it('sanitization', () => {
+    expect(sanitizeTwitterId()).toEqual('')
+    expect(sanitizeTwitterId(123)).toEqual('')
+    expect(sanitizeTwitterId(null)).toEqual('')
+    expect(sanitizeTwitterId(true)).toEqual('')
+    expect(sanitizeTwitterId('')).toEqual('')
+    expect(sanitizeTwitterId('dracula')).toEqual('dracula')
+    expect(sanitizeTwitterId('@dracula')).toEqual('dracula')
+    expect(sanitizeTwitterId('@@dracula')).toEqual('@dracula')
   })
 })
 

@@ -108,3 +108,15 @@ export const assertHasAcceptedLegalAgreements = legal => {
 export const stringsMatchIgnoreCase = (a1, a2) => (typeof a1 === 'string') && (typeof a2 === 'string') && a1.toLowerCase() === a2.toLowerCase()
 
 export const addressesMatch = stringsMatchIgnoreCase
+
+export const sanitizeTwitterId = str => {
+  if (typeof str !== 'string') {
+    return ''
+  }
+
+  if (str.charAt(0) === '@') {
+    return str.substr(1)
+  }
+
+  return str
+}
