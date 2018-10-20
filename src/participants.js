@@ -1,11 +1,10 @@
 import { toBN } from 'web3-utils'
 
-import { PARTICIPANT_STATUS } from './status'
-
-export const getSocialId = (user = {}, socialType) => {
-  const { value } =
-    (user.social || []).find(({ type }) => type === socialType) || {}
-  return value
+export const PARTICIPANT_STATUS = {
+  UNKNOWN: 'UNKNOWN',
+  REGISTERED: 'REGISTERED',
+  SHOWED_UP: 'SHOWED_UP',
+  WITHDRAWN_PAYOUT: 'WITHDRAWN_PAYOUT',
 }
 
 export const calculateNumAttended = participants => participants.reduce((m, v) => {
@@ -27,7 +26,7 @@ export const calculateFinalizeMaps = participants => {
     }
 
     if (participants[i].status === PARTICIPANT_STATUS.SHOWED_UP) {
-      currentMap = currentMap.bincn(i)
+      currentMap = currentMap.bincn(i % 256)
     }
   }
   maps.push(currentMap)
