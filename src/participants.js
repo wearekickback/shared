@@ -25,8 +25,14 @@ export const calculateFinalizeMaps = participants => {
       currentMap = toBN(0)
     }
 
-    if (participants[i].status === PARTICIPANT_STATUS.SHOWED_UP) {
-      currentMap = currentMap.bincn(i % 256)
+    switch (participants[i].status) {
+      case PARTICIPANT_STATUS.SHOWED_UP:
+        currentMap = currentMap.bincn(i % 256)
+        break
+      case PARTICIPANT_STATUS.REGISTERED:
+        break
+      default:
+        throw new Error(`Unexpected participant status: ${participants[i].status}`)
     }
   }
   maps.push(currentMap)
@@ -36,8 +42,8 @@ export const calculateFinalizeMaps = participants => {
 
 export const updateParticipantListFromMaps = (participants, maps) => {
   // sort
-  participants.sort(({ index: indexA }, { index: indexB }) => (
-    (parseInt(indexA, 10) < parseInt(indexB, 10)) ? -1 : 1
+  participants.sort((a, b) => (
+    (parseInt(a.index, 10) < parseInt(b.index, 10)) ? -1 : 1
   ))
 
   // check maps length

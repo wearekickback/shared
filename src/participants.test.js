@@ -87,6 +87,24 @@ describe('.calculateFinalizeMaps', () => {
     expect(calculateFinalizeMaps(ps)).toEqual([ '0', '0' ])
   })
 
+  it('unexpected bad status value - withdrawn payout', () => {
+    ps[1].status = PARTICIPANT_STATUS.WITHDRAWN_PAYOUT
+
+    expect(() => calculateFinalizeMaps(ps)).toThrow()
+  })
+
+  it('unexpected bad status value - unknown', () => {
+    ps[1].status = PARTICIPANT_STATUS.UNKNOWN
+
+    expect(() => calculateFinalizeMaps(ps)).toThrow()
+  })
+
+  it('unexpected bad status value - null', () => {
+    ps[1].status = null
+
+    expect(() => calculateFinalizeMaps(ps)).toThrow()
+  })
+
   it('everyone showed up', () => {
     let n1 = toBN(0)
     for (let i = 0; i < 256; i += 1) {
