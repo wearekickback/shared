@@ -1,9 +1,9 @@
-# validation
+# shared
 
-[![Build Status](https://api.travis-ci.org/noblocknoparty/validation.svg?branch=master)](https://travis-ci.org/noblocknoparty/validation)
-[![Coverage Status](https://coveralls.io/repos/github/noblocknoparty/validation/badge.svg?branch=master)](https://coveralls.io/github/noblocknoparty/validation?branch=master)
+[![Build Status](https://api.travis-ci.org/noblocknoparty/shared.svg?branch=master)](https://travis-ci.org/noblocknoparty/shared)
+[![Coverage Status](https://coveralls.io/repos/github/noblocknoparty/shared/badge.svg?branch=master)](https://coveralls.io/github/noblocknoparty/shared?branch=master)
 
-Validation for user input.
+Shared utils between client and server.
 
 ## Dev guide
 

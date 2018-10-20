@@ -1,7 +1,7 @@
 {
-  "name": "@noblocknoparty/validation",
+  "name": "@noblocknoparty/shared",
   "version": "1.2.0",
-  "description": "Validation for user input",
+  "description": "Shared utils between client and server",
   "main": "dist/index.js",
   "module": "src/index.js",
   "files": [
@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/noblocknoparty/validation.git"
+    "url": "git+https://github.com/noblocknoparty/shared.git"
   },
   "keywords": [
     "ethereum",
@@ -29,9 +29,9 @@
   "author": "Ramesh Nair <ram@hiddentao.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/noblocknoparty/validation/issues"
+    "url": "https://github.com/noblocknoparty/shared/issues"
   },
-  "homepage": "https://github.com/noblocknoparty/validation#readme",
+  "homepage": "https://github.com/noblocknoparty/shared#readme",
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
