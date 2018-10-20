@@ -12,3 +12,9 @@ export const assertHasAcceptedLegalAgreements = legal => {
     throw new Error(`Legal agreements must be accepted (terms, privacy)`)
   }
 }
+
+export const LEGAL = {
+  TERMS_AND_CONDITIONS: 'TERMS_AND_CONDITIONS',
+  PRIVACY_POLICY: 'PRIVACY_POLICY',
+  MARKETING_INFO: 'MARKETING_INFO',
+}

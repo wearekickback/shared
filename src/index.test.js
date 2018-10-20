@@ -12,7 +12,8 @@ import {
   assertHasAcceptedLegalAgreements,
   stringsMatchIgnoreCase,
   addressesMatch,
-  PARTICIPANT_STATUS
+  PARTICIPANT_STATUS,
+  LEGAL
 } from './'
 
 describe('participant status', () => {
@@ -22,6 +23,16 @@ describe('participant status', () => {
       REGISTERED: 'REGISTERED',
       SHOWED_UP: 'SHOWED_UP',
       WITHDRAWN_PAYOUT: 'WITHDRAWN_PAYOUT',
+    })
+  })
+})
+
+describe('legal', () => {
+  it('is exported', () => {
+    expect(LEGAL).toEqual({
+      TERMS_AND_CONDITIONS: 'TERMS_AND_CONDITIONS',
+      PRIVACY_POLICY: 'PRIVACY_POLICY',
+      MARKETING_INFO: 'MARKETING_INFO',
     })
   })
 })
