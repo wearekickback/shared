@@ -386,4 +386,83 @@ describe('list -> map -> list', () => {
       }
     })
   })
+
+  it('works for p255, p257, p299 showed up', () => {
+    expect.assertions(300)
+
+    ps.forEach(p => {
+      switch (p.index) {
+        case 255:
+        case 257:
+        case 299:
+          p.status = PARTICIPANT_STATUS.SHOWED_UP
+          break
+        default:
+          break
+      }
+    })
+
+    const maps = calculateFinalizeMaps(ps)
+
+    ps.sort(() => (Math.random() < 0.5 ? -1 : 1))
+
+    ps.forEach(p => {
+      p.status = PARTICIPANT_STATUS.UNKNOWN
+    })
+
+    updateParticipantListFromMaps(ps, maps)
+
+    ps.forEach(({ index, status }) => {
+      switch (index) {
+        case 255:
+        case 257:
+        case 299:
+          expect(status).toEqual(PARTICIPANT_STATUS.SHOWED_UP)
+          break
+        default:
+          expect(status).toEqual(PARTICIPANT_STATUS.REGISTERED)
+          break
+      }
+    })
+  })
+
+  it('works for none showed up', () => {
+    expect.assertions(300)
+
+    const maps = calculateFinalizeMaps(ps)
+
+    ps.sort(() => (Math.random() < 0.5 ? -1 : 1))
+
+    ps.forEach(p => {
+      p.status = PARTICIPANT_STATUS.UNKNOWN
+    })
+
+    updateParticipantListFromMaps(ps, maps)
+
+    ps.forEach(({ status }) => {
+      expect(status).toEqual(PARTICIPANT_STATUS.REGISTERED)
+    })
+  })
+
+  it('works for all showed up', () => {
+    expect.assertions(300)
+
+    ps.forEach(p => {
+      p.status = PARTICIPANT_STATUS.SHOWED_UP
+    })
+
+    const maps = calculateFinalizeMaps(ps)
+
+    ps.sort(() => (Math.random() < 0.5 ? -1 : 1))
+
+    ps.forEach(p => {
+      p.status = PARTICIPANT_STATUS.UNKNOWN
+    })
+
+    updateParticipantListFromMaps(ps, maps)
+
+    ps.forEach(({ status }) => {
+      expect(status).toEqual(PARTICIPANT_STATUS.SHOWED_UP)
+    })
+  })
 })
