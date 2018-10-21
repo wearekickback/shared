@@ -126,7 +126,7 @@ describe('.calculateFinalizeMaps', () => {
     expect(calculateFinalizeMaps(ps)).toEqual(maps)
   })
 
-  it('p1, p2, p256, p257, p298, p299 showed up', () => {
+  it.only('p1, p2, p256, p257, p298, p299 showed up', () => {
     const maps = [
       toBN(0).bincn(1).bincn(2).toString(10),
       toBN(0).bincn(0).bincn(1).bincn(298 % 256)
@@ -249,7 +249,7 @@ describe('.updateParticipantListFromMaps', () => {
     })
   })
 
-  it('handles p1, p2, p256, p257, p298, p99 attended', () => {
+  it('handles p1, p2, p256, p257, p298, p299 attended', () => {
     expect.assertions(300)
 
     const maps = [
@@ -314,6 +314,69 @@ describe('.updateParticipantListFromMaps', () => {
       switch (index) {
         case 255:
         case 257:
+        case 299:
+          expect(status).toEqual(PARTICIPANT_STATUS.SHOWED_UP)
+          break
+        default:
+          expect(status).toEqual(PARTICIPANT_STATUS.REGISTERED)
+          break
+      }
+    })
+  })
+})
+
+describe('list -> map -> list', () => {
+  let ps
+
+  beforeEach(() => {
+    ps = []
+
+    for (let i = 0; 300 > i; i += 1) {
+      ps.push({
+        index: i,
+        status: PARTICIPANT_STATUS.REGISTERED
+      })
+    }
+
+    // randomize sort
+    ps.sort(() => (Math.random() < 0.5 ? -1 : 1))
+  })
+
+  it('works for p1, p2, p256, p257, p298, p299 showed up', () => {
+    expect.assertions(300)
+
+    ps.forEach(p => {
+      switch (p.index) {
+        case 1:
+        case 2:
+        case 256:
+        case 257:
+        case 298:
+        case 299:
+          p.status = PARTICIPANT_STATUS.SHOWED_UP
+          break
+        default:
+          break
+      }
+    })
+
+    const maps = calculateFinalizeMaps(ps)
+
+    ps.sort(() => (Math.random() < 0.5 ? -1 : 1))
+
+    ps.forEach(p => {
+      p.status = PARTICIPANT_STATUS.UNKNOWN
+    })
+
+    updateParticipantListFromMaps(ps, maps)
+
+    ps.forEach(({ index, status }) => {
+      switch (index) {
+        case 1:
+        case 2:
+        case 256:
+        case 257:
+        case 298:
         case 299:
           expect(status).toEqual(PARTICIPANT_STATUS.SHOWED_UP)
           break
