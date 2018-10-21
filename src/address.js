@@ -11,3 +11,6 @@ export const assertEthereumAddress = str => {
 }
 
 export const addressesMatch = stringsMatchIgnoreCase
+
+export const isInAddressList = (addressList, address) =>
+  !!addressList.find(a => addressesMatch(a, address))

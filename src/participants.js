@@ -1,4 +1,6 @@
+import safeGet from 'lodash.get'
 import { toBN } from 'web3-utils'
+import { addressesMatch } from './address'
 
 export const PARTICIPANT_STATUS = {
   UNKNOWN: 'UNKNOWN',
@@ -6,6 +8,9 @@ export const PARTICIPANT_STATUS = {
   SHOWED_UP: 'SHOWED_UP',
   WITHDRAWN_PAYOUT: 'WITHDRAWN_PAYOUT',
 }
+
+export const isParticipant = (participants, address) =>
+  address && !!participants.find(a => addressesMatch(safeGet(a, 'user.address'), address))
 
 export const calculateNumAttended = participants => participants.reduce((m, v) => {
   const attended =

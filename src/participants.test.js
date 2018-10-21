@@ -4,6 +4,7 @@ import {
   calculateNumAttended,
   calculateFinalizeMaps,
   updateParticipantListFromMaps,
+  isParticipant,
   PARTICIPANT_STATUS,
 } from './'
 
@@ -15,6 +16,23 @@ describe('participant status', () => {
       SHOWED_UP: 'SHOWED_UP',
       WITHDRAWN_PAYOUT: 'WITHDRAWN_PAYOUT',
     })
+  })
+})
+
+describe('check if participant', () => {
+  it('in list', () => {
+    const ps = [
+      {},
+      { user: null },
+      { user: { address: '0x123' } },
+      { user: { address: '0xABdef1' } },
+    ]
+
+    expect(isParticipant(ps, undefined)).toEqual(false)
+    expect(isParticipant(ps, null)).toEqual(false)
+    expect(isParticipant(ps, '0x456')).toEqual(false)
+    expect(isParticipant(ps, '0x123')).toEqual(true)
+    expect(isParticipant(ps, '0xabdef1')).toEqual(true)
   })
 })
 

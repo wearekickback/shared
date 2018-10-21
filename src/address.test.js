@@ -1,6 +1,8 @@
 import {
   isEthereumAddress,
   assertEthereumAddress,
+  addressesMatch,
+  isInAddressList,
 } from './'
 
 describe('real name', () => {
@@ -28,5 +30,27 @@ describe('real name', () => {
         expect(() => assertEthereumAddress(input)).toThrow()
       }
     })
+  })
+})
+
+describe('address match', () => {
+  it('works', () => {
+    expect(addressesMatch('0x', '0x1')).toEqual(false)
+    expect(addressesMatch('0xabcdef00', '0xabcdef00')).toEqual(true)
+    expect(addressesMatch('0xabcdef00', '0xabcdef00')).toEqual(true)
+    expect(addressesMatch('0xabcDEf001', '0xABcdeF00')).toEqual(false)
+  })
+})
+
+describe('address list search', () => {
+  it('by needle', () => {
+    const addresses = [
+      '0xabcdef00',
+      '0xabcDEf001',
+      '0x2323234',
+    ]
+
+    expect(isInAddressList(addresses, '0xab')).toEqual(false)
+    expect(isInAddressList(addresses, '0xabcdef001')).toEqual(true)
   })
 })
