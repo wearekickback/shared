@@ -1,11 +1,11 @@
 {
   "name": "@noblocknoparty/shared",
-  "version": "1.5.0",
+  "version": "1.5.2",
   "description": "Shared utils between client and server",
   "main": "dist/index.js",
   "module": "src/index.js",
   "files": [
-    "src/index.js",
+    "src",
     "dist"
   ],
   "scripts": {
