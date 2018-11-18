@@ -1,7 +1,7 @@
 # shared
 
-[![Build Status](https://api.travis-ci.org/noblocknoparty/shared.svg?branch=master)](https://travis-ci.org/noblocknoparty/shared)
-[![Coverage Status](https://coveralls.io/repos/github/noblocknoparty/shared/badge.svg?branch=master)](https://coveralls.io/github/noblocknoparty/shared?branch=master)
+[![Build Status](https://api.travis-ci.org/wearekickback/shared.svg?branch=master)](https://travis-ci.org/wearekickback/shared)
+[![Coverage Status](https://coveralls.io/repos/github/wearekickback/shared/badge.svg?branch=master)](https://coveralls.io/github/wearekickback/shared?branch=master)
 
 Shared utils between client and server.
 
