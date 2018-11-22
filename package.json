@@ -1,6 +1,6 @@
 {
   "name": "@wearekickback/shared",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "Shared utils between client and server",
   "main": "dist/index.js",
   "module": "src/index.js",
