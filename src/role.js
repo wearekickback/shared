@@ -1,0 +1,4 @@
+export const ROLE = {
+  SUPER_ADMIN: 'SUPER_ADMIN',
+  EVENT_ADMIN: 'EVENT_ADMIN',
+}
