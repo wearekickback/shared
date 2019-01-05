@@ -55,9 +55,7 @@ export const updateParticipantListFromMaps = (participants, maps) => {
   const totalBits = maps.length * 256
   const numMapsCorrect = totalBits >= participants.length && totalBits - participants.length < 256
   if (!numMapsCorrect) {
-    this._log.warn(`Invalid no. of maps provided for updating participant list`)
-
-    return
+    throw new Error(`Invalid no. of maps provided for updating participant list`)
   }
 
   const mapBNs = maps.map(m => toBN(m))
