@@ -53,6 +53,7 @@
     "jest": "^23.6.0"
   },
   "dependencies": {
+    "graphql-tag": "^2.10.0",
     "lodash.get": "^4.4.2",
     "validator": "^10.8.0",
     "web3-utils": "^1.0.0-beta.36"
