@@ -1,6 +1,6 @@
 {
   "name": "@wearekickback/shared",
-  "version": "1.10.0",
+  "version": "1.11.0",
   "description": "Shared utils between client and server",
   "main": "dist/index.js",
   "module": "src/index.js",
@@ -53,8 +53,6 @@
     "jest": "^23.6.0"
   },
   "dependencies": {
-    "graphql": "^14.0.2",
-    "graphql-tag": "^2.10.0",
     "lodash.get": "^4.4.2",
     "validator": "^10.8.0",
     "web3-utils": "^1.0.0-beta.36"
