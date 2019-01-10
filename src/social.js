@@ -1,5 +1,5 @@
-export const getSocialId = (user = {}, socialType) => {
+export const getSocialId = (socials, socialType) => {
   const { value } =
-    (user.social || []).find(({ type }) => type === socialType) || {}
+    socials.find(({ type }) => type === socialType) || {}
   return value
 }
