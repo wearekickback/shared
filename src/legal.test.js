@@ -1,6 +1,8 @@
 import {
   hasAcceptedLegalAgreements,
   assertHasAcceptedLegalAgreements,
+  getLegalAgreement,
+  getUserAcceptedLegalAgreement,
   LEGAL
 } from './'
 
@@ -20,10 +22,10 @@ describe('legal agreements', () => {
     const tests = [
       [ undefined, false ],
       [ [], false ],
-      [ [ { type: 'TERMS_AND_CONDITIONS' }, { type: 'PRIVACY_POLICY' }, { type: 'MARKETING' } ], false ],
+      [ [ { type: 'TERMS_AND_CONDITIONS', id: 'id1' }, { type: 'PRIVACY_POLICY' }, { type: 'MARKETING' } ], false ],
       [ [ { type: 'TERMS_AND_CONDITIONS', accepted: true } ], false ],
       [ [ { type: 'TERMS_AND_CONDITIONS', accepted: true }, { type: 'PRIVACY_POLICY' } ], false ],
-      [ [ { type: 'TERMS_AND_CONDITIONS' }, { type: 'PRIVACY_POLICY' } ], false ],
+      [ [ { type: 'TERMS_AND_CONDITIONS' }, { type: 'PRIVACY_POLICY', id: 'id2' } ], false ],
       [ [ { type: 'TERMS_AND_CONDITIONS' }, { type: 'PRIVACY_POLICY', accepted: true } ], false ],
       [ [ { type: 'TERMS_AND_CONDITIONS', accepted: true }, { type: 'PRIVACY_POLICY', accepted: true } ], true ],
       [
@@ -36,7 +38,7 @@ describe('legal agreements', () => {
       ],
     ]
 
-    expect.assertions(tests.length * 2)
+    expect.assertions(tests.length * 2 + 5)
 
     tests.forEach(([ input, expected ]) => {
       expect(hasAcceptedLegalAgreements(input)).toEqual(expected)
@@ -47,5 +49,18 @@ describe('legal agreements', () => {
         expect(() => assertHasAcceptedLegalAgreements(input)).toThrow()
       }
     })
+
+    const legal1 = [ { type: 'TERMS_AND_CONDITIONS', id: 'id1' }, { type: 'PRIVACY_POLICY' }, { type: 'MARKETING' } ]
+    const legal2 = [ { type: 'TERMS_AND_CONDITIONS' }, { type: 'PRIVACY_POLICY', id: 'id2' } ]
+
+    expect(getLegalAgreement(legal1, LEGAL.TERMS_AND_CONDITIONS)).toEqual({ type: 'TERMS_AND_CONDITIONS', id: 'id1' })
+    expect(getLegalAgreement(legal2, LEGAL.PRIVACY_POLICY)).toEqual({ type: 'PRIVACY_POLICY', id: 'id2' })
+    expect(getLegalAgreement(legal2, LEGAL.MARKETING_INFO)).toEqual(null)
+
+    const actualLegal = [ { type: 'TERMS_AND_CONDITIONS', id: 'id1' }, { type: 'PRIVACY_POLICY', id: 'id2', accepted: true }, { type: 'MARKETING', id: 'id3' } ]
+    const userLegal = [ { type: 'TERMS_AND_CONDITIONS', accepted: true, id: 'id1' }, { type: 'PRIVACY_POLICY', id: 'id4', accepted: true }, { type: 'MARKETING' } ]
+
+    expect(getUserAcceptedLegalAgreement(userLegal, actualLegal, LEGAL.TERMS_AND_CONDITIONS)).toEqual({ type: 'TERMS_AND_CONDITIONS', accepted: true, id: 'id1' })
+    expect(getUserAcceptedLegalAgreement(userLegal, actualLegal, LEGAL.PRIVACY_POLICY)).toEqual(null)
   })
 })
