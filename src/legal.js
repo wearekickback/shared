@@ -13,9 +13,9 @@ export const assertHasAcceptedLegalAgreements = legal => {
   }
 }
 
-export const getLegalAgreement = (legal, idType) => {
-  return (legal || []).find(({ type }) => type === idType) || null
-}
+export const getLegalAgreement = (legal, idType) => (
+  (legal || []).find(({ type }) => type === idType) || null
+)
 
 export const getUserAcceptedLegalAgreement = (userLegal, actualLegal, idType) => {
   const actual = actualLegal.find(({ type }) => type === idType)
