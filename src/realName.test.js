@@ -1,4 +1,5 @@
 import {
+  ValidationError,
   isRealName,
   assertRealName,
 } from './'
@@ -25,7 +26,16 @@ describe('real name', () => {
       [ 'abcdefghijabcdefghijabcdefghijabcdefghijabcdefghi', false ],
     ]
 
-    expect.assertions(tests.length * 2)
+    const { numToPass, numToFail } = tests.reduce((m, [ i, exp ]) => {
+      if (exp) {
+        m.numToPass++
+      } else {
+        m.numToFail++
+      }
+      return m
+    }, { numToPass: 0, numToFail: 0 })
+
+    expect.assertions(numToPass * 2 + numToFail * 4)
 
     tests.forEach(([ input, expected ]) => {
       expect(isRealName(input)).toEqual(expected)
@@ -34,6 +44,15 @@ describe('real name', () => {
         expect(() => assertRealName(input)).not.toThrow()
       } else {
         expect(() => assertRealName(input)).toThrow()
+        try {
+          assertRealName(input)
+        } catch (err) {
+          expect(err instanceof ValidationError).toBeTruthy()
+          expect(err.rules).toEqual([
+            'Must be between 2 and 48 characters',
+            'Must NOT contain numbers or underscores',
+          ])
+        }
       }
     })
   })

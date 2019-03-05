@@ -1,3 +1,5 @@
+import { ValidationError } from './errors'
+
 export const isUsername = str => {
   if (typeof str !== 'string') {
     return false
@@ -16,6 +18,9 @@ export const isUsername = str => {
 
 export const assertUsername = str => {
   if (!isUsername(str)) {
-    throw new Error(`Invalid username: ${str}. Must be between 2 and 16 characters and only contains letters, numbers and underscores.`)
+    throw new ValidationError(`Invalid username: ${str}`, [
+      'Must be between 2 and 16 characters',
+      'Must only contains letters, numbers and underscores',
+    ])
   }
 }

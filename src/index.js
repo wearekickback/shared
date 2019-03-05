@@ -1,3 +1,4 @@
+export * from './errors'
 export * from './address'
 export * from './email'
 export * from './username'

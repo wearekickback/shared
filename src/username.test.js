@@ -1,4 +1,5 @@
 import {
+  ValidationError,
   isUsername,
   assertUsername,
 } from './'
@@ -24,7 +25,16 @@ describe('username', () => {
       [ '12345678901234567', false ],
     ]
 
-    expect.assertions(tests.length * 2)
+    const { numToPass, numToFail } = tests.reduce((m, [ i, exp ]) => {
+      if (exp) {
+        m.numToPass++
+      } else {
+        m.numToFail++
+      }
+      return m
+    }, { numToPass: 0, numToFail: 0 })
+
+    expect.assertions(numToPass * 2 + numToFail * 4)
 
     tests.forEach(([ input, expected ]) => {
       expect(isUsername(input)).toEqual(expected)
@@ -33,6 +43,15 @@ describe('username', () => {
         expect(() => assertUsername(input)).not.toThrow()
       } else {
         expect(() => assertUsername(input)).toThrow()
+        try {
+          assertUsername(input)
+        } catch (err) {
+          expect(err instanceof ValidationError).toBeTruthy()
+          expect(err.rules).toEqual([
+            'Must be between 2 and 16 characters',
+            'Must only contains letters, numbers and underscores',
+          ])
+        }
       }
     })
   })

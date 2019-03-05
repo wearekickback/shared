@@ -1,12 +1,13 @@
 import { isAddress } from 'web3-utils'
 
+import { ValidationError } from './errors'
 import { stringsMatchIgnoreCase } from './strings'
 
 export const isEthereumAddress = str => isAddress(str)
 
 export const assertEthereumAddress = str => {
   if (!isEthereumAddress(str)) {
-    throw new Error(`Invalid Ethereum address: ${str}`)
+    throw new ValidationError(`Invalid Ethereum address: ${str}`)
   }
 }
 

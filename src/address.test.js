@@ -1,11 +1,12 @@
 import {
+  ValidationError,
   isEthereumAddress,
   assertEthereumAddress,
   addressesMatch,
   isInAddressList,
 } from './'
 
-describe('real name', () => {
+describe('address', () => {
   it('checks and assertions', () => {
     const tests = [
       [ '', false ],
@@ -19,7 +20,16 @@ describe('real name', () => {
       [ '0x0000000000000000000000000000000000000000', true ],
     ]
 
-    expect.assertions(tests.length * 2)
+    const { numToPass, numToFail } = tests.reduce((m, [ i, exp ]) => {
+      if (exp) {
+        m.numToPass++
+      } else {
+        m.numToFail++
+      }
+      return m
+    }, { numToPass: 0, numToFail: 0 })
+
+    expect.assertions(numToPass * 2 + numToFail * 4)
 
     tests.forEach(([ input, expected ]) => {
       expect(isEthereumAddress(input)).toEqual(expected)
@@ -28,6 +38,12 @@ describe('real name', () => {
         expect(() => assertEthereumAddress(input)).not.toThrow()
       } else {
         expect(() => assertEthereumAddress(input)).toThrow()
+        try {
+          assertEthereumAddress(input)
+        } catch (err) {
+          expect(err instanceof ValidationError).toBeTruthy()
+          expect(err.rules).toEqual([])
+        }
       }
     })
   })

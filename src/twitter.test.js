@@ -1,4 +1,5 @@
 import {
+  ValidationError,
   isTwitterId,
   assertTwitterId,
   sanitizeTwitterId,
@@ -25,7 +26,16 @@ describe('twitter id', () => {
       [ '12345678901234567', false ],
     ]
 
-    expect.assertions(tests.length * 2)
+    const { numToPass, numToFail } = tests.reduce((m, [ i, exp ]) => {
+      if (exp) {
+        m.numToPass++
+      } else {
+        m.numToFail++
+      }
+      return m
+    }, { numToPass: 0, numToFail: 0 })
+
+    expect.assertions(numToPass * 2 + numToFail * 4)
 
     tests.forEach(([ input, expected ]) => {
       expect(isTwitterId(input)).toEqual(expected)
@@ -34,6 +44,16 @@ describe('twitter id', () => {
         expect(() => assertTwitterId(input)).not.toThrow()
       } else {
         expect(() => assertTwitterId(input)).toThrow()
+        try {
+          assertTwitterId(input)
+        } catch (err) {
+          expect(err instanceof ValidationError).toBeTruthy()
+          expect(err.rules).toEqual([
+            'Must be between 2 and 16 characters',
+            'Must only contain letters, numbers and underscores',
+            'Must not be a URL, e.g. if the URL is twitter.com/myId then use "myId"',
+          ])
+        }
       }
     })
   })

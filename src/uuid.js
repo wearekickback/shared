@@ -1,3 +1,5 @@
+import { ValidationError } from './errors'
+
 import { isUUID as checkIsUUID } from 'validator'
 
 export const isUUID = str => {
@@ -10,6 +12,6 @@ export const isUUID = str => {
 
 export const assertUUID = str => {
   if (!isUUID(str)) {
-    throw new Error(`Invalid UUID: ${str}`)
+    throw new ValidationError(`Invalid UUID: ${str}`)
   }
 }
