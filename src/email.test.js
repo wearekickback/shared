@@ -18,11 +18,11 @@ describe('email address', () => {
       [ '你好@哦好.com', true ],
     ]
 
-    const { numToPass, numToFail } = tests.reduce((m, [ i, exp ]) => {
+    const { numToPass, numToFail } = tests.reduce((m, [ , exp ]) => {
       if (exp) {
-        m.numToPass++
+        m.numToPass += 1
       } else {
-        m.numToFail++
+        m.numToFail += 1
       }
       return m
     }, { numToPass: 0, numToFail: 0 })

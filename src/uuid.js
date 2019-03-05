@@ -1,6 +1,6 @@
-import { ValidationError } from './errors'
-
 import { isUUID as checkIsUUID } from 'validator'
+
+import { ValidationError } from './errors'
 
 export const isUUID = str => {
   if (typeof str !== 'string') {

@@ -15,11 +15,11 @@ describe('uuid', () => {
       [ 'a21c09cc-f1db-4086-9bd7-e568e23fe160', true ],
     ]
 
-    const { numToPass, numToFail } = tests.reduce((m, [ i, exp ]) => {
+    const { numToPass, numToFail } = tests.reduce((m, [ , exp ]) => {
       if (exp) {
-        m.numToPass++
+        m.numToPass += 1
       } else {
-        m.numToFail++
+        m.numToFail += 1
       }
       return m
     }, { numToPass: 0, numToFail: 0 })
