@@ -7,6 +7,8 @@ export const PARTICIPANT_STATUS = {
   REGISTERED: 'REGISTERED',
   SHOWED_UP: 'SHOWED_UP',
   WITHDRAWN_PAYOUT: 'WITHDRAWN_PAYOUT',
+  REFUND_READY: 'REFUND_READY',
+  WITHDRAWN_REFUND: 'WITHDRAWN_REFUND',
 }
 
 export const isParticipant = (participants, address) =>
