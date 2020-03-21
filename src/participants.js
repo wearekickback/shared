@@ -20,9 +20,34 @@ export const calculateNumAttended = participants => participants.reduce((m, v) =
   return m + (attended ? 1 : 0)
 }, 0)
 
-export const calculateFinalizeMaps = participants => {
+export const calculateFinalizeMaps = (participants, overrideMissingValue = false) => {
+
+  if(!(overrideMissingValue === true || overrideMissingValue === false)) {
+    throw new Error(`Invalid overrideMissingValue, expected true or false, got ${overrideMissingValue}`)
+  }
+
   // sort participants array
   participants.sort((a, b) => (a.index < b.index ? -1 : 1))
+
+  // check for missing participants
+  for(let i = 0; participants.length > i; ) {
+    const currentIndex = participants[i].index
+    if(currentIndex !== i + 1) {
+
+      if(!overrideMissingValue) {
+        throw new Error(`Participant ${i + 1} is missing`)
+      }
+
+      list.splice(i, 0, {
+        status: PARTICIPANT_STATUS.REGISTERED,
+        index: i + 1,
+        address: '0x0000000000000000000000000000000000000000',
+      })
+
+    } else {
+      i++
+    }
+  }
 
   const maps = []
   let currentMap = toBN(0)
