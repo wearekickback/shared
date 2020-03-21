@@ -41,7 +41,9 @@ export const calculateFinalizeMaps = (participants, overrideMissingValue = false
       list.splice(i, 0, {
         status: PARTICIPANT_STATUS.REGISTERED,
         index: i + 1,
-        address: '0x0000000000000000000000000000000000000000',
+        user: {
+          address: '0x0000000000000000000000000000000000000000'
+        },
       })
 
     } else {
