@@ -32,15 +32,14 @@ export const calculateFinalizeMaps = (participants, overrideMissingValue = false
   // check for missing participants
   for(let i = 0; participants.length > i; ) {
     const currentIndex = participants[i].index
-    if(currentIndex !== i + 1) {
-
+    if(currentIndex !== i) {
       if(!overrideMissingValue) {
-        throw new Error(`Participant ${i + 1} is missing`)
+        throw new Error(`Participant ${i} is missing`)
       }
 
-      list.splice(i, 0, {
+      participants.splice(i, 0, {
         status: PARTICIPANT_STATUS.REGISTERED,
-        index: i + 1,
+        index: i,
         user: {
           address: '0x0000000000000000000000000000000000000000'
         },
@@ -69,8 +68,8 @@ export const calculateFinalizeMaps = (participants, overrideMissingValue = false
         throw new Error(`Unexpected participant status: ${participants[i].status}`)
     }
   }
+ 
   maps.push(currentMap)
-
   return maps.map(m => m.toString(10))
 }
 
