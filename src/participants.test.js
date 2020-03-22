@@ -213,7 +213,6 @@ describe('.calculateFinalizeMaps', () => {
   })
 
   it('p5 is missing, override REGISTERED', () => {
-
     // We set #6 to SHOWED_UP and remove #5 from the list
     const maps = [
       toBN(0).bincn(6).toString(10),
@@ -237,7 +236,6 @@ describe('.calculateFinalizeMaps', () => {
   })
 
   it('p5 is missing, override SHOWED_UP', () => {
-
     // We set #6 to SHOWED_UP and remove #5 from the list
     const maps = [
       toBN(0).bincn(6).bincn(5).toString(10),
@@ -261,13 +259,6 @@ describe('.calculateFinalizeMaps', () => {
   })
 
   it('p5 is missing, override default value', () => {
-
-    // We set #6 to SHOWED_UP and remove #5 from the list
-    const maps = [
-      toBN(0).bincn(6).bincn(5).toString(10),
-      toBN(0).toString(10),
-    ]
-
     ps.forEach(p => {
       switch (p.index) {
         case 6:
@@ -287,7 +278,6 @@ describe('.calculateFinalizeMaps', () => {
   it('override invalid value', () => {
     expect(() => calculateFinalizeMaps(ps, 123)).toThrow()
   })
-
 })
 
 
