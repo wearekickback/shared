@@ -20,10 +20,10 @@ export const calculateNumAttended = participants => participants.reduce((m, v) =
   return m + (attended ? 1 : 0)
 }, 0)
 
-export const calculateFinalizeMaps = (participants, overrideMissingValue = false) => {
+export const calculateFinalizeMaps = (participants, overrideMissingValue) => {
 
-  if(!(overrideMissingValue === true || overrideMissingValue === false)) {
-    throw new Error(`Invalid overrideMissingValue, expected true or false, got ${overrideMissingValue}`)
+  if(!(overrideMissingValue === undefined || overrideMissingValue === 0 || overrideMissingValue === 1)) {
+    throw new Error(`Invalid overrideMissingValue, expected undefined, 0 or 1 , got ${overrideMissingValue}`)
   }
 
   // sort participants array
@@ -33,12 +33,12 @@ export const calculateFinalizeMaps = (participants, overrideMissingValue = false
   for(let i = 0; participants.length > i; ) {
     const currentIndex = participants[i].index
     if(currentIndex !== i) {
-      if(!overrideMissingValue) {
+      if(overrideMissingValue === undefined) {
         throw new Error(`Participant ${i} is missing`)
       }
 
       participants.splice(i, 0, {
-        status: PARTICIPANT_STATUS.REGISTERED,
+        status: overrideMissingValue === 0 ? PARTICIPANT_STATUS.REGISTERED : PARTICIPANT_STATUS.SHOWED_UP,
         index: i,
         user: {
           address: '0x0000000000000000000000000000000000000000'
