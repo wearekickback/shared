@@ -232,7 +232,7 @@ describe('.calculateFinalizeMaps', () => {
     ps.sort((a, b) => (a.index < b.index ? -1 : 1))
     ps.splice(5, 1)
 
-    expect(calculateFinalizeMaps(ps, 0)).toEqual(maps)
+    expect(calculateFinalizeMaps(ps, PARTICIPANT_STATUS.REGISTERED)).toEqual(maps)
   })
 
   it('p5 is missing, override SHOWED_UP', () => {
@@ -255,7 +255,7 @@ describe('.calculateFinalizeMaps', () => {
     ps.sort((a, b) => (a.index < b.index ? -1 : 1))
     ps.splice(5, 1)
 
-    expect(calculateFinalizeMaps(ps, 1)).toEqual(maps)
+    expect(calculateFinalizeMaps(ps, PARTICIPANT_STATUS.SHOWED_UP)).toEqual(maps)
   })
 
   it('p5 is missing, override default value', () => {
