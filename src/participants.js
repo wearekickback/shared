@@ -20,9 +20,35 @@ export const calculateNumAttended = participants => participants.reduce((m, v) =
   return m + (attended ? 1 : 0)
 }, 0)
 
-export const calculateFinalizeMaps = participants => {
+export const calculateFinalizeMaps = (participants, overrideMissingValue) => {
+  if (!(overrideMissingValue === undefined ||
+    overrideMissingValue === PARTICIPANT_STATUS.SHOWED_UP ||
+    overrideMissingValue === PARTICIPANT_STATUS.REGISTERED)) {
+    throw new Error(`Invalid overrideMissingValue, expected undefined, SHOWED_UP or REGISTERED , got ${overrideMissingValue}`)
+  }
+
   // sort participants array
   participants.sort((a, b) => (a.index < b.index ? -1 : 1))
+
+  // check for missing participants
+  for (let i = 0; participants.length > i;) {
+    const currentIndex = participants[i].index
+    if (currentIndex !== i) {
+      if (overrideMissingValue === undefined) {
+        throw new Error(`Participant ${i} is missing`)
+      }
+
+      participants.splice(i, 0, {
+        overrideMissingValue,
+        index: i,
+        user: {
+          address: '0x0000000000000000000000000000000000000000'
+        },
+      })
+    } else {
+      i += 1
+    }
+  }
 
   const maps = []
   let currentMap = toBN(0)
@@ -42,8 +68,8 @@ export const calculateFinalizeMaps = participants => {
         throw new Error(`Unexpected participant status: ${participants[i].status}`)
     }
   }
-  maps.push(currentMap)
 
+  maps.push(currentMap)
   return maps.map(m => m.toString(10))
 }
 
