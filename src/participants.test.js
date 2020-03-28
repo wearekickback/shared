@@ -171,6 +171,7 @@ describe('.calculateFinalizeMaps', () => {
           break
       }
     })
+
     expect(calculateFinalizeMaps(ps)).toEqual(maps)
   })
 
