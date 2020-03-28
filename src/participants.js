@@ -39,7 +39,7 @@ export const calculateFinalizeMaps = (participants, overrideMissingValue) => {
       }
 
       participants.splice(i, 0, {
-        overrideMissingValue,
+        status: overrideMissingValue,
         index: i + 1,
         user: {
           address: '0x0000000000000000000000000000000000000000'
