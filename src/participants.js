@@ -33,14 +33,14 @@ export const calculateFinalizeMaps = (participants, overrideMissingValue) => {
   // check for missing participants
   for (let i = 0; participants.length > i;) {
     const currentIndex = participants[i].index
-    if (currentIndex !== i) {
+    if (currentIndex !== i + 1) {
       if (overrideMissingValue === undefined) {
         throw new Error(`Participant ${i} is missing`)
       }
 
       participants.splice(i, 0, {
         overrideMissingValue,
-        index: i,
+        index: i + 1,
         user: {
           address: '0x0000000000000000000000000000000000000000'
         },
