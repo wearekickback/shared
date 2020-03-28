@@ -150,11 +150,13 @@ describe('.calculateFinalizeMaps', () => {
       toBN(0)
         .bincn(1 - 1)
         .bincn(2 - 1)
-        .bincn(256 - 1).toString(10),
+        .bincn(256 - 1)
+        .toString(10),
       toBN(0)
         .bincn(1 - 1)
         .bincn((298 % 256) - 1)
-        .bincn((299 % 256) - 1).toString(10)
+        .bincn((299 % 256) - 1)
+        .toString(10)
     ]
 
     ps.forEach(p => {
@@ -348,7 +350,8 @@ describe('.updateParticipantListFromMaps', () => {
     const maps = [
       toBN(0).bincn(1 - 1)
         .bincn(2 - 1)
-        .bincn(256 - 1).toString(10),
+        .bincn(256 - 1)
+        .toString(10),
       toBN(0).bincn(1 - 1).bincn((298 % 256) - 1)
         .bincn((299 % 256) - 1)
         .toString(10)
