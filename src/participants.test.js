@@ -147,10 +147,14 @@ describe('.calculateFinalizeMaps', () => {
 
   it('p1, p2, p256, p257, p298, p299 showed up', () => {
     const maps = [
-      toBN(0).bincn(1 - 1).bincn(2 - 1).bincn(256 - 1).toString(10),
-      toBN(0).bincn(1 - 1).bincn((298 % 256) - 1)
-        .bincn((299 % 256) - 1)
-        .toString(10),
+      toBN(0)
+        .bincn(1 - 1)
+        .bincn(2 - 1)
+        .bincn(256 - 1).toString(10),
+      toBN(0)
+        .bincn(1 - 1)
+        .bincn((298 % 256) - 1)
+        .bincn((299 % 256) - 1).toString(10)
     ]
 
     ps.forEach(p => {
@@ -191,8 +195,11 @@ describe('.calculateFinalizeMaps', () => {
 
   it('p255, p257, p299 showed up', () => {
     const maps = [
-      toBN(0).bincn(255 - 1).toString(10),
-      toBN(0).bincn((257 % 256) - 1).bincn((299 % 256) - 1).toString(10),
+      toBN(0)
+        .bincn(255 - 1).toString(10),
+      toBN(0)
+        .bincn((257 % 256) - 1)
+        .bincn((299 % 256) - 1).toString(10)
     ]
 
     ps.forEach(p => {
@@ -214,7 +221,7 @@ describe('.calculateFinalizeMaps', () => {
     // We set #6 to SHOWED_UP and remove #5 from the list
     const maps = [
       toBN(0).bincn(6 - 1).toString(10),
-      toBN(0).toString(10),
+      toBN(0).toString(10)
     ]
 
     ps.forEach(p => {
@@ -237,7 +244,7 @@ describe('.calculateFinalizeMaps', () => {
     // We set #6 to SHOWED_UP and remove #5 from the list
     const maps = [
       toBN(0).bincn(6 - 1).bincn(5 - 1).toString(10),
-      toBN(0).toString(10),
+      toBN(0).toString(10)
     ]
 
     ps.forEach(p => {
@@ -338,10 +345,12 @@ describe('.updateParticipantListFromMaps', () => {
     expect.assertions(300)
 
     const maps = [
-      toBN(0).bincn(1 - 1).bincn(2 - 1).bincn(256 - 1).toString(10),
+      toBN(0).bincn(1 - 1)
+        .bincn(2 - 1)
+        .bincn(256 - 1).toString(10),
       toBN(0).bincn(1 - 1).bincn((298 % 256) - 1)
         .bincn((299 % 256) - 1)
-        .toString(10),
+        .toString(10)
     ]
 
     updateParticipantListFromMaps(ps, maps)
@@ -368,7 +377,7 @@ describe('.updateParticipantListFromMaps', () => {
 
     const maps = [
       toBN(0).toString(10),
-      toBN(0).bincn(0).toString(10),
+      toBN(0).bincn(0).toString(10)
     ]
 
     updateParticipantListFromMaps(ps, maps)
@@ -389,8 +398,11 @@ describe('.updateParticipantListFromMaps', () => {
     expect.assertions(300)
 
     const maps = [
-      toBN(0).bincn(255 - 1).toString(10),
-      toBN(0).bincn(1 - 1).bincn((299 % 256) - 1).toString(10),
+      toBN(0)
+        .bincn(255 - 1).toString(10),
+      toBN(0)
+        .bincn(1 - 1)
+        .bincn((299 % 256) - 1).toString(10)
     ]
 
     updateParticipantListFromMaps(ps, maps)
