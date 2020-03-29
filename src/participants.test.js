@@ -29,9 +29,8 @@ describe('check if participant', () => {
       { user: { address: '0x123' } },
       { user: { address: '0xABdef1' } },
     ]
-
-    expect(isParticipant(ps, undefined)).toEqual(false)
-    expect(isParticipant(ps, null)).toEqual(false)
+    expect(isParticipant(ps, undefined)).toEqual(undefined)
+    expect(isParticipant(ps, null)).toEqual(null)
     expect(isParticipant(ps, '0x456')).toEqual(false)
     expect(isParticipant(ps, '0x123')).toEqual(true)
     expect(isParticipant(ps, '0xabdef1')).toEqual(true)
@@ -95,7 +94,7 @@ describe('.calculateFinalizeMaps', () => {
 
     for (let i = 0; 300 > i; i += 1) {
       ps.push({
-        index: i,
+        index: i + 1,
         status: PARTICIPANT_STATUS.REGISTERED
       })
     }
@@ -146,12 +145,18 @@ describe('.calculateFinalizeMaps', () => {
     expect(calculateFinalizeMaps(ps)).toEqual(maps)
   })
 
-  it.only('p1, p2, p256, p257, p298, p299 showed up', () => {
+  it('p1, p2, p256, p257, p298, p299 showed up', () => {
     const maps = [
-      toBN(0).bincn(1).bincn(2).toString(10),
-      toBN(0).bincn(0).bincn(1).bincn(298 % 256)
-        .bincn(299 % 256)
+      toBN(0)
+        .bincn(1 - 1)
+        .bincn(2 - 1)
+        .bincn(256 - 1)
         .toString(10),
+      toBN(0)
+        .bincn(1 - 1)
+        .bincn((298 % 256) - 1)
+        .bincn((299 % 256) - 1)
+        .toString(10)
     ]
 
     ps.forEach(p => {
@@ -174,8 +179,8 @@ describe('.calculateFinalizeMaps', () => {
 
   it('p256 showed up', () => {
     const maps = [
+      toBN(0).bincn(256 - 1).toString(10),
       toBN(0).toString(10),
-      toBN(0).bincn(0).toString(10),
     ]
 
     ps.forEach(p => {
@@ -193,8 +198,11 @@ describe('.calculateFinalizeMaps', () => {
 
   it('p255, p257, p299 showed up', () => {
     const maps = [
-      toBN(0).bincn(255).toString(10),
-      toBN(0).bincn(1).bincn(299 % 256).toString(10),
+      toBN(0)
+        .bincn(255 - 1).toString(10),
+      toBN(0)
+        .bincn((257 % 256) - 1)
+        .bincn((299 % 256) - 1).toString(10)
     ]
 
     ps.forEach(p => {
@@ -215,8 +223,8 @@ describe('.calculateFinalizeMaps', () => {
   it('p5 is missing, override REGISTERED', () => {
     // We set #6 to SHOWED_UP and remove #5 from the list
     const maps = [
-      toBN(0).bincn(6).toString(10),
-      toBN(0).toString(10),
+      toBN(0).bincn(6 - 1).toString(10),
+      toBN(0).toString(10)
     ]
 
     ps.forEach(p => {
@@ -230,7 +238,7 @@ describe('.calculateFinalizeMaps', () => {
     })
 
     ps.sort((a, b) => (a.index < b.index ? -1 : 1))
-    ps.splice(5, 1)
+    ps.splice(5 - 1, 1)
 
     expect(calculateFinalizeMaps(ps, PARTICIPANT_STATUS.REGISTERED)).toEqual(maps)
   })
@@ -238,8 +246,8 @@ describe('.calculateFinalizeMaps', () => {
   it('p5 is missing, override SHOWED_UP', () => {
     // We set #6 to SHOWED_UP and remove #5 from the list
     const maps = [
-      toBN(0).bincn(6).bincn(5).toString(10),
-      toBN(0).toString(10),
+      toBN(0).bincn(6 - 1).bincn(5 - 1).toString(10),
+      toBN(0).toString(10)
     ]
 
     ps.forEach(p => {
@@ -253,7 +261,7 @@ describe('.calculateFinalizeMaps', () => {
     })
 
     ps.sort((a, b) => (a.index < b.index ? -1 : 1))
-    ps.splice(5, 1)
+    ps.splice(5 - 1, 1)
 
     expect(calculateFinalizeMaps(ps, PARTICIPANT_STATUS.SHOWED_UP)).toEqual(maps)
   })
@@ -270,7 +278,7 @@ describe('.calculateFinalizeMaps', () => {
     })
 
     ps.sort((a, b) => (a.index < b.index ? -1 : 1))
-    ps.splice(5, 1)
+    ps.splice(5 - 1, 1)
 
     expect(() => calculateFinalizeMaps(ps)).toThrow()
   })
@@ -289,7 +297,7 @@ describe('.updateParticipantListFromMaps', () => {
 
     for (let i = 0; 300 > i; i += 1) {
       ps.push({
-        index: i,
+        index: i + 1,
         status: PARTICIPANT_STATUS.UNKNOWN
       })
     }
@@ -340,10 +348,13 @@ describe('.updateParticipantListFromMaps', () => {
     expect.assertions(300)
 
     const maps = [
-      toBN(0).bincn(1).bincn(2).toString(10),
-      toBN(0).bincn(0).bincn(1).bincn(298 % 256)
-        .bincn(299 % 256)
+      toBN(0).bincn(1 - 1)
+        .bincn(2 - 1)
+        .bincn(256 - 1)
         .toString(10),
+      toBN(0).bincn(1 - 1).bincn((298 % 256) - 1)
+        .bincn((299 % 256) - 1)
+        .toString(10)
     ]
 
     updateParticipantListFromMaps(ps, maps)
@@ -365,19 +376,19 @@ describe('.updateParticipantListFromMaps', () => {
     })
   })
 
-  it('handles p256 attended', () => {
+  it('handles p257 attended', () => {
     expect.assertions(300)
 
     const maps = [
       toBN(0).toString(10),
-      toBN(0).bincn(0).toString(10),
+      toBN(0).bincn(0).toString(10)
     ]
 
     updateParticipantListFromMaps(ps, maps)
 
     ps.forEach(({ index, status }) => {
       switch (index) {
-        case 256:
+        case 257:
           expect(status).toEqual(PARTICIPANT_STATUS.SHOWED_UP)
           break
         default:
@@ -391,8 +402,11 @@ describe('.updateParticipantListFromMaps', () => {
     expect.assertions(300)
 
     const maps = [
-      toBN(0).bincn(255).toString(10),
-      toBN(0).bincn(1).bincn(299 % 256).toString(10),
+      toBN(0)
+        .bincn(255 - 1).toString(10),
+      toBN(0)
+        .bincn(1 - 1)
+        .bincn((299 % 256) - 1).toString(10)
     ]
 
     updateParticipantListFromMaps(ps, maps)
@@ -420,7 +434,7 @@ describe('list -> map -> list', () => {
 
     for (let i = 0; 300 > i; i += 1) {
       ps.push({
-        index: i,
+        index: i + 1,
         status: PARTICIPANT_STATUS.REGISTERED
       })
     }
